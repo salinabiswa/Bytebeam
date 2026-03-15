@@ -1,4 +1,5 @@
 workflows:
+
   android-release:
     name: ByteBeam Android APK
     max_build_duration: 60
@@ -11,6 +12,29 @@ workflows:
         script: flutter build apk --release
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - akashchanda27@gmail.com
+        notify:
+          success: true
+          failure: true
+
+  windows-release:
+    name: ByteBeam Windows EXE
+    max_build_duration: 60
+    instance_type: windows_x2
+    environment:
+      flutter: stable
+    scripts:
+      - name: Get packages
+        script: flutter pub get
+      - name: Enable Windows
+        script: flutter config --enable-windows-desktop
+      - name: Build Windows
+        script: flutter build windows --release
+    artifacts:
+      - build/windows/x64/runner/Release/**
     publishing:
       email:
         recipients:
