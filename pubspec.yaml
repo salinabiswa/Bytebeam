@@ -12,7 +12,7 @@ dependencies:
   provider: ^6.1.1
   file_picker: ^8.0.3
   path_provider: ^2.1.2
-  network_info_plus: ^6.1.4
+  network_info_plus: ^7.0.0        # ← updated from 6.1.4
   permission_handler: ^11.3.1
   archive: ^3.4.10
   uuid: ^4.3.3
@@ -25,9 +25,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-```
-
-**Only one change — but it's the critical one:**
-```
-BEFORE:  network_info_plus: ^5.0.3  ❌ very outdated, causes conflicts
-AFTER:   network_info_plus: ^6.1.4  ✅ stable, compatible with everything
