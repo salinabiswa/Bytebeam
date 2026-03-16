@@ -4,15 +4,21 @@ import 'package:provider/provider.dart';
 import 'providers/app_state.dart';
 import 'ui/theme.dart';
 import 'ui/home_screen.dart';
+import 'dart:io';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: Color(0xFF07090F),
-  ));
+  
+  // Only apply mobile-specific settings on Android/iOS
+  if (Platform.isAndroid || Platform.isIOS) {
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Color(0xFF07090F),
+    ));
+  }
+
   runApp(ChangeNotifierProvider(
     create: (_) => AppState()..init(),
     child: const ByteBeamApp(),
@@ -55,3 +61,19 @@ class _Splash extends StatelessWidget {
     ])),
   );
 }
+```
+
+**What changed:**
+```
+Added import 'dart:io'              ✅ needed for Platform check
+Wrapped mobile settings in         ✅ only runs on Android/iOS
+if (Platform.isAndroid || Platform.isIOS)
+Windows build ignores those lines  ✅ no more crashes
+```
+
+**Now share the remaining files:**
+```
+providers/app_state.dart    → most important, share next
+ui/theme.dart               
+ui/home_screen.dart         
+Any other dart files
