@@ -48,17 +48,3 @@ workflows:
         notify:
           success: true
           failure: true
-```
-
-**What I changed:**
-```
-Added cache for windows     →  Saves 30-40 mins on repeat builds
-Added cache for android     →  Speeds up future android builds too
-Fixed max_build_duration    →  120 (free tier maximum)
-```
-
-**Important:**
-```
-First build     →  Still might be slow (cache is empty)
-Second build    →  Much faster because cache is populated
-Third build+    →  Should finish well within 60-80 minutes
